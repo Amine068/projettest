@@ -15,20 +15,20 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 
--- Listage de la structure de la base pour projet_amine
+-- Listage de la structure de la base pour projettest_amine
 CREATE DATABASE IF NOT EXISTS `projettest_amine` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
 USE `projettest_amine`;
 
--- Listage de la structure de table projet_amine. annonce
+-- Listage de la structure de table projettest_amine. annonce
 CREATE TABLE IF NOT EXISTS `annonce` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `title` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `description` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `title` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `description` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `date_of_post` datetime NOT NULL,
   `price` double NOT NULL,
-  `state` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `city` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `zipcode` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `state` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `city` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `zipcode` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `is_validated` tinyint(1) NOT NULL DEFAULT '0',
   `is_visible` tinyint(1) NOT NULL,
   `is_locked` tinyint(1) NOT NULL DEFAULT '0',
@@ -42,19 +42,19 @@ CREATE TABLE IF NOT EXISTS `annonce` (
   CONSTRAINT `FK_F65593E5A76ED395` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Listage des données de la table projet_amine.annonce : ~2 rows (environ)
+-- Listage des données de la table projettest_amine.annonce : ~2 rows (environ)
 INSERT INTO `annonce` (`id`, `title`, `description`, `date_of_post`, `price`, `state`, `city`, `zipcode`, `is_validated`, `is_visible`, `is_locked`, `telephone`, `subcategory_id`, `user_id`) VALUES
 	(1, 'test', 'testtttt', '2025-02-11 13:28:16', 21, 'neuf', 'Mulhouse', '68100', 0, 1, 0, 101010101, NULL, 19),
 	(2, 'testaaa', 'aaaa', '2025-02-11 13:29:54', 21, 'neuf', 'Mulhouse', '68100', 0, 0, 0, 101010101, NULL, 19);
 
--- Listage de la structure de table projet_amine. category
+-- Listage de la structure de table projettest_amine. category
 CREATE TABLE IF NOT EXISTS `category` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `name` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Listage des données de la table projet_amine.category : ~1 rows (environ)
+-- Listage des données de la table projettest_amine.category : ~9 rows (environ)
 INSERT INTO `category` (`id`, `name`) VALUES
 	(1, 'Vidéo & Son'),
 	(3, 'Ordinateur'),
@@ -66,15 +66,15 @@ INSERT INTO `category` (`id`, `name`) VALUES
 	(9, 'Electroménager'),
 	(10, 'Autre accessoire');
 
--- Listage de la structure de table projet_amine. doctrine_migration_versions
+-- Listage de la structure de table projettest_amine. doctrine_migration_versions
 CREATE TABLE IF NOT EXISTS `doctrine_migration_versions` (
-  `version` varchar(191) COLLATE utf8mb3_unicode_ci NOT NULL,
+  `version` varchar(191) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
   `executed_at` datetime DEFAULT NULL,
   `execution_time` int DEFAULT NULL,
   PRIMARY KEY (`version`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
 
--- Listage des données de la table projet_amine.doctrine_migration_versions : ~4 rows (environ)
+-- Listage des données de la table projettest_amine.doctrine_migration_versions : ~5 rows (environ)
 INSERT INTO `doctrine_migration_versions` (`version`, `executed_at`, `execution_time`) VALUES
 	('DoctrineMigrations\\Version20250204152401', '2025-02-04 15:24:17', 35),
 	('DoctrineMigrations\\Version20250205134511', '2025-02-05 13:45:24', 44),
@@ -87,12 +87,12 @@ INSERT INTO `doctrine_migration_versions` (`version`, `executed_at`, `execution_
 	('DoctrineMigrations\\Version20250211132102', '2025-02-11 13:21:05', 54),
 	('DoctrineMigrations\\Version20250211132614', '2025-02-11 13:26:18', 7);
 
--- Listage de la structure de table projet_amine. messenger_messages
+-- Listage de la structure de table projettest_amine. messenger_messages
 CREATE TABLE IF NOT EXISTS `messenger_messages` (
   `id` bigint NOT NULL AUTO_INCREMENT,
-  `body` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
-  `headers` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
-  `queue_name` varchar(190) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `body` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `headers` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `queue_name` varchar(190) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` datetime NOT NULL COMMENT '(DC2Type:datetime_immutable)',
   `available_at` datetime NOT NULL COMMENT '(DC2Type:datetime_immutable)',
   `delivered_at` datetime DEFAULT NULL COMMENT '(DC2Type:datetime_immutable)',
@@ -102,35 +102,67 @@ CREATE TABLE IF NOT EXISTS `messenger_messages` (
   KEY `IDX_75EA56E016BA31DB` (`delivered_at`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Listage des données de la table projet_amine.messenger_messages : ~0 rows (environ)
+-- Listage des données de la table projettest_amine.messenger_messages : ~0 rows (environ)
 
--- Listage de la structure de table projet_amine. subcategory
+-- Listage de la structure de table projettest_amine. subcategory
 CREATE TABLE IF NOT EXISTS `subcategory` (
   `id` int NOT NULL AUTO_INCREMENT,
   `category_id` int NOT NULL,
-  `name` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   PRIMARY KEY (`id`),
   KEY `IDX_DDCA44812469DE2` (`category_id`),
   CONSTRAINT `FK_DDCA44812469DE2` FOREIGN KEY (`category_id`) REFERENCES `category` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=36 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Listage des données de la table projet_amine.subcategory : ~1 rows (environ)
+-- Listage des données de la table projettest_amine.subcategory : ~33 rows (environ)
 INSERT INTO `subcategory` (`id`, `category_id`, `name`) VALUES
-	(1, 1, 'Rétroprojecteur');
+	(2, 1, 'Retroprojecteur'),
+	(3, 1, 'table de mixage'),
+	(4, 1, 'Téléviseurs'),
+	(5, 1, 'Barres de son'),
+	(6, 3, 'Ordinateur portables'),
+	(7, 3, 'Ordinateurs de bureau'),
+	(8, 3, 'Station de travail'),
+	(9, 4, 'Sacoches et sacs'),
+	(10, 4, 'Support ordinateur portable'),
+	(11, 4, 'Disques durs externes'),
+	(12, 4, 'Adaptateur et hubs USB'),
+	(13, 4, 'Câbles et chargeurs'),
+	(14, 5, 'Appareil photo'),
+	(15, 5, 'Caméra d\'action'),
+	(16, 5, 'Objectifs photo'),
+	(17, 5, 'Trépieds et stabilisateurs'),
+	(18, 6, 'Smartphones'),
+	(19, 6, 'Coques et étuis'),
+	(20, 6, 'Chargeurs sans fil'),
+	(21, 6, 'Supports de téléphone'),
+	(22, 7, 'Jeux vidéo'),
+	(23, 7, 'Réalité virtuelle'),
+	(24, 8, 'Console de jeux'),
+	(26, 8, 'Accessoires de console'),
+	(27, 8, 'Carte mémoire et disque dur'),
+	(28, 8, 'Volants et pédales'),
+	(29, 9, 'Réfrigérateurs et congélateurs'),
+	(30, 9, 'Lave-linge et sèche-linge'),
+	(31, 9, 'Aspirateurs'),
+	(32, 9, 'Cuisine'),
+	(33, 10, 'Montre connectées'),
+	(34, 10, 'Objets connectés'),
+	(35, 10, 'Autres accessoires');
 
--- Listage de la structure de table projet_amine. user
+-- Listage de la structure de table projettest_amine. user
 CREATE TABLE IF NOT EXISTS `user` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `email` varchar(180) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(180) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `roles` json NOT NULL,
-  `password` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `password` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `is_verified` tinyint(1) NOT NULL,
-  `google_id` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `google_id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `UNIQ_IDENTIFIER_EMAIL` (`email`)
 ) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Listage des données de la table projet_amine.user : ~9 rows (environ)
+-- Listage des données de la table projettest_amine.user : ~10 rows (environ)
 INSERT INTO `user` (`id`, `email`, `roles`, `password`, `is_verified`, `google_id`) VALUES
 	(1, 'aaa@aaa.fr', '[]', '$2y$13$u5FCiQ0Ra9KSp3saarkVd.do3IBaSLRyxJTwxtFOm0KRq/EWaUGva', 0, NULL),
 	(2, 'bbb@bbb.fr', '[]', '$2y$13$0jZqK93CeslQ2cT.M.n51.ZdsspHlWSwYp81e0f5ilD8zwecq33oa', 1, NULL),

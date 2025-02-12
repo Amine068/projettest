@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Titre projet</title>
+</head>
+<body>
+    
+</body>
+</html>
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}Welcome!{% endblock %}</title>
+        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text><text y=%221.3em%22 x=%220.2em%22 font-size=%2276%22 fill=%22%23fff%22>sf</text></svg>">
+        {% block stylesheets %}
+        <link rel="stylesheet" href=" {{asset('css/style.css')}} ">
+        {% endblock %}
+        <style>
+            .candy {
+                opacity: 0;
+                position: absolute;
+                top: 0;
+                left: 0;
+                height: 0;
+                width: 0;
+                z-index: -1;
+            }
+        </style>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <script src="/tarteaucitron/tarteaucitron.min.js"></script>
+        <script src="{{asset('js/script.js')}}" defer></script>
+        <script type="text/javascript">
+            tarteaucitron.init({
+              "privacyUrl": "", /* Url de la politique de confidentialité */
+              "bodyPosition": "top", /* top place le bandeau de consentement au début du code html, mieux pour l'accessibilité */
+    
+              "hashtag": "#tarteaucitron", /* Hashtag qui permet d'ouvrir le panneau de contrôle  */
+              "cookieName": "tarteaucitron", /* Nom du cookie (uniquement lettres et chiffres) */
+        
+              "orientation": "middle", /* Position de la bannière (top - bottom - popup - banner) */
+           
+              "groupServices": true, /* Grouper les services par catégorie */
+              "showDetailsOnClick": true, /* Cliquer pour ouvrir la description */
+              "serviceDefaultState": "wait", /* Statut par défaut (true - wait - false) */
+                               
+              "showAlertSmall": false, /* Afficher la petite bannière en bas à droite */
+              "cookieslist": false, /* Afficher la liste des cookies */
+                               
+              "closePopup": true, /* Afficher un X pour fermer la bannière */
+    
+              "showIcon": true, /* Afficher un cookie pour ouvrir le panneau */
+              //"iconSrc": "", /* Optionnel: URL ou image en base64 */
+              "iconPosition": "BottomLeft", /* Position de l'icons: (BottomRight - BottomLeft - TopRight - TopLeft) */
+    
+              "adblocker": false, /* Afficher un message si un Adblocker est détecté */
+                               
+              "DenyAllCta" : true, /* Afficher le bouton Tout refuser */
+              "AcceptAllCta" : true, /* Afficher le bouton Tout accepter */
+              "highPrivacy": true, /* Attendre le consentement */
+              "alwaysNeedConsent": false, /* Demander le consentement même pour les services "Privacy by design" */
+                               
+              "handleBrowserDNTRequest": false, /* Refuser tout par défaut si Do Not Track est activé sur le navigateur */
+    
+              "removeCredit": false, /* Retirer le lien de crédit vers tarteaucitron.io */
+              "moreInfoLink": true, /* Afficher le lien En savoir plus */
+    
+              "useExternalCss": false, /* Mode expert : désactiver le chargement des fichiers .css tarteaucitron */
+              "useExternalJs": false, /* Mode expert : désactiver le chargement des fichiers .js tarteaucitron */
+    
+              //"cookieDomain": ".my-multisite-domaine.fr", /* Optionnel: domaine principal pour partager le consentement avec des sous domaines */
+                              
+              "readmoreLink": "", /* Changer le lien En savoir plus par défaut */
+    
+              "mandatory": true, /* Afficher un message pour l'utilisation de cookies obligatoires */
+
+              "mandatoryCta": false, /* Afficher un bouton pour les cookies obligatoires (déconseillé) */
+        
+              //"customCloserId": "", /* Optionnel a11y: ID personnalisé pour ouvrir le panel */
+              
+              "googleConsentMode": true, /* Activer le Google Consent Mode v2 pour Google ads et GA4 */
+              
+              "partnersList": true /* Afficher le détail du nombre de partenaires sur la bandeau */
+
+            });
+            </script>
+            <script>
+                (tarteaucitron.job = tarteaucitron.job || []).push('googlesignin');
+                </script>
+        {% block javascripts %}
+        <script src="https://cdn.tailwindcss.com"></script>
+            {% block importmap %}{{ importmap('app') }}{% endblock %}
+        {% endblock %}
+    </head>
+    <body>
+        <header class="header">
+            <div class="topHeaderContainer">
+                <a href="{{ path('app_home') }}" class="headerTitle">Nom du projet</a>
+                <a href="{{ path('add_new_annonce') }}" class="newPost">Déposer une annonce</a>
+                <div class="searchFormContainer">
+                    <form action="" class="searchbar" method="POST">
+                        <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+                        <input type="text" name="text" class="textSearch" placeholder="Rechercher une annonce">
+                    </form>
+                </div>
+                <nav class="headerNavTop">
+                    <a href="" class="navElementTop">Favoris</a>
+                    <a href="" class="navElementTop">Messages</a>
+                    {% if app.user is not null %}
+                        <a href="" class="navElementTop">Mon compte</a>
+                        <a href="{{ path('app_logout') }}" class="navElementTop">Déconnexion</a>
+                    {% else %}
+                        <a href="{{ path('app_login') }}" class="navElementTop">Se connecter</a>
+                        <a href="{{ path('app_register') }}" class="navElementTop">S'inscrire</a>
+                    {% endif %}
+                </nav>
+            </div>
+            <div class="bottomHeaderContainer">
+                <nav class="headerNavBottom">
+                    {% for category in categories %}
+                        <a href="" class="navElementBottom">{{ category.name }}</a>
+                    {% endfor %}
+                </nav>
+            </div>
+        </header>
+        <section class="main bg-[#F2F6F6]">
+            {% block body %}{% endblock %}
+        </section>
+        <footer>
+            <div class="footerTopContainer">
+                <div class="footerContainer">
+                    <a href="" class="footerTitle">A PROPOS</a>
+                    <a href="" class="footerElement">Qui sommes-nous</a>
+                    <a href="" class="footerElement">Nos engagements</a>
+                    <a href="" class="footerElement">Nous rejoindre</a>
+                    <a href="" class="footerElement">Nous contacter</a>
+                </div>
+                <div class="footerContainer">
+                    <a href="" class="footerTitle">CATEGORIE</a>
+                    {% for category in categories %}
+                        <a href="" class="footerElement">{{ category.name }}</a>
+                    {% endfor %}
+                </div>
+                <div class="footerContainer">
+                    <a href="" class="footerTitle">MENTIONS LEGALES</a>
+                    <a href="" class="footerElement">Conditions générales d'utilisation</a>
+                    <a href="" class="footerElement">Politique de confidentialité</a>
+                    <a href="" class="footerElement">Politique de protection des données</a>
+                    <a href="" class="footerElement">Cookies</a>
+                </div>
+                <div class="footerContainer">
+                </div>
+            </div>
+            <p>© 2025  Mon Projet -  Toutes droits réservés</p>
+            <a href="{{ path('app_category') }}">liste des categories</a>
+        </footer>
+    </body>
+</html>

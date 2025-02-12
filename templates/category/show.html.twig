@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{category.name}}{% endblock %}
+
+{% block body %}
+
+    <a href="{{ path('add_subcategory', {'category': category.id}) }}" class="p-2 text-white bg-[#004C5E] m-20 rounded-md">Ajouter une nouvelle sous-categorie</a>
+    Liste des sous-categorie de la categorie {{category.name}}
+
+    <div class="flex flex-row gap-5">
+        {% for subcategory in category.Subcategory %}
+            <div class="flex flex-col bg-white p-5 m-5 rounded-md shadow-md">
+                <span>{{ subcategory.name }}</span>
+                <a href="{{ path('edit_subcategory', {'category': category.id, 'subCategory': subcategory.id}) }}" class="p-2 text-white bg-[#004C5E] m-2 rounded-md">Modifier</a>
+                <a href="{{ path('delete_subcategory', {'id': subcategory.id}) }}" class="p-3 text-white bg-[#004C5E] m-2 rounded-md">Supprimer</a>
+            </div>
+        {% endfor %}
+    </div>
+
+{% endblock %}

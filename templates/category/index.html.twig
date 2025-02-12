@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des categories{% endblock %}
+
+{% block body %}
+
+<section class="flex flex-col items-center p-5">
+    <a href="{{ path('add_category') }}" class="px-4 py-2 text-white bg-[#004C5E] rounded-md">Ajouter une nouvelle categorie</a>
+    
+        <div class="flex flex-wrap gap-5 max-w-5xl mx-auto p-5">
+            {% for category in categories %}
+                <div class="flex flex-col bg-white p-3 rounded-md shadow-md text-center">
+                    <a href="{{ path('show_category', {'id': category.id}) }}" class="">{{ category.name }}</a>
+                    <a href="{{ path('edit_category', {'id': category.id}) }}" class="p-2 text-white bg-[#004C5E] m-2 rounded-md">Modifier</a>
+                    <a href="{{ path('delete_category', {'id': category.id}) }}" class="p-3 text-white bg-[#004C5E] m-2 rounded-md">Supprimer</a>
+                </div>
+            {% endfor %}
+        </div>
+</section>
+
+{% endblock %}

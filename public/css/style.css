@@ -1,0 +1,165 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.main {
+    flex-grow: 1;
+}
+
+.header {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.topHeaderContainer {
+    padding: 1rem 1rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.headerTitle {
+    color: #004C5E;
+    font-size: 1.25rem;
+    font-weight: bold;
+    text-decoration: none;
+    margin: auto 0;
+}
+
+.test {
+    margin-top: 3rem;
+}
+
+.newPost {
+    background-color: #004C5E;
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    text-decoration: none;
+    font-size: 1rem;
+    text-align: center;
+}
+
+.searchFormContainer {
+    border-radius: 4px;
+    background-color: #F0F0F0;
+    flex-grow: 1;
+    max-width: 400px;
+    border: 1px solid #ABB7C5;
+}
+  
+.searchbar {
+    display: flex;
+    align-items: center;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.searchbar::placeholder {
+    color: #ABB7C5;
+}
+  
+.searchbar button {
+    border-radius: 5px;
+    background-color: #004C5E;
+    border: none;
+    padding: 0.5rem;
+    color: white;
+    cursor: pointer;
+}
+  
+.textSearch {
+    background-color: #F0F0F0;
+    width: 100%;
+    padding: 0.5rem;
+    border: none;
+    outline: none;
+    font-size: 0.9rem;
+}
+
+.headerNavTop {
+    text-align: center;
+    border: 1px solid #004C5E;
+    border-radius: 5px;
+    width: 30%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-right: 2rem;
+}
+
+.navElementTop {
+    padding: 0.5rem 1rem;
+    text-decoration: none;
+    color: #004C5E;
+}
+
+.bottomHeaderContainer {
+    border-bottom: 1px solid #006666;
+    padding: 1rem 0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.headerNavBottom {
+    display: flex;
+    flex-direction: row;
+}
+
+
+.navElementBottom {
+    color: #2D2D2D;
+    padding: 0 3rem;
+    text-decoration: none;
+}
+
+footer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color: #004C5E;
+    text-align: center;
+}
+
+.footerContainer {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+}
+
+.footerTopContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 1rem 5rem;
+}
+
+.footerTitle {
+    color: white;
+    font-size: 1.25rem;
+    font-weight: bold;
+    text-decoration: none;
+    padding-bottom: 1rem;
+}
+
+.footerElement {
+    color: white;
+    text-decoration: none;
+}
+
+footer > p {
+    color: white;
+    padding: 1rem;
+}

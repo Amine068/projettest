@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<div class="flex flex-grow justify-center items-center py-32">    
+    {% if error %}
+        <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+    {% endif %}
+    <div class="flex flex-col p-6 bg-white rounded-md shadow-md w-1/4">
+        <h2 class="text-[#004C5E] text-center text-2xl pb-4">Se connecter</h2>
+        <form action="{{ path('app_login') }}" method="post" class="flex flex-col gap-6">
+            <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+            <div class="flex flex-col gap-2">
+                <label for="username">Email</label>
+                <input type="text" id="username" name="_username" placeholder="Entrer votre email" value="{{ last_username }}" class="p-2 rounded-md border border-gray-300">
+            </div>
+            <div class="flex flex-col gap-2">
+                <label for="password">Mot de passe</label>
+                <input type="password" id="password" name="_password" placeholder="Entrer votre mot de passe" class="p-2 rounded-md border border-gray-300">
+            </div>
+            <button type="submit" class="bg-[#004C5E] p-2 rounded-md hover:bg-[#086479] text-white w-32 m-auto mt-4">Se Connecter</button>
+            <input type="hidden">
+        </form>
+        <a href="{{ path('connect_google_start') }}" class="flex flex-row items-center mt-5 m-auto gap-2 p-2 border-2 border-gray-300 rounded-full text-gray-700 transition duration-300 group hover:border-blue-400 focus:bg-blue-50">
+            <img src="https://img.icons8.com/?size=100&id=17949&format=png&color=000000" alt="google logo" class="w-8 h-8 m-auto"/>
+            <span class="text-gray-700 transition duration-300 group-hover:text-blue-600">Continuer avec Google</span>
+        </a>
+    </div>
+
+    {# {% if tarteaucitron.isConsentGiven('google') %}
+        <a href="{{ path('connect_google_start') }}" class="btn btn-google">Login with Google</a>
+    {% else %}
+        <p>Please accept cookies to enable Google login.</p>
+    {% endif %} #}
+</div>
+{% endblock %}

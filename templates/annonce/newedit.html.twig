@@ -3,34 +3,40 @@
 {% block title %}Ajouter une annonce{% endblock %}
 
 {% block body %}
-{% for flash_error in app.flashes('verify_email_error') %}
-<div class="alert alert-danger" role="alert">{{ flash_error }}</div>
-{% endfor %}
+<div class="flex flex-grow justify-center items-center py-32">
 
-    <h1>Ajouter une annonce</h1>
+    {% for flash_error in app.flashes('verify_email_error') %}
+    <div class="alert alert-danger" role="alert">{{ flash_error }}</div>
+    {% endfor %}
 
     {{ form_errors(form) }}
-
-    {{ form_start(form, {attr: {id: 'newAnnonceForm'}}) }}
-    {{ form_row(form.title) }}
-    {{ form_row(form.description) }}
-    {{ form_row(form.price) }}
-    {{ form_row(form.state)}}
-    {{ form_row(form.city) }}
-    {{ form_row(form.zipcode) }}
-    {{ form_row(form.telephone) }}
-    {{ form_row(form.isVisible) }}
-    <fieldset class="candy">
-        {{ form_label(form.phone) }}
-        {{ form_errors(form.phone) }}
-        {{ form_widget(form.phone) }}
-    </fieldset>
-    <fieldset class="candy">
-        {{ form_label(form.faxNumber) }}
-        {{ form_errors(form.faxNumber) }}
-        {{ form_widget(form.faxNumber) }}
-    </fieldset>
-    {{ form_row(form.Category) }}
-    {{ form_row(form.subcategory) }}
-    {{ form_end(form) }}
+    
+    <div class="flex flex-col p-6 bg-white rounded-md shadow-md w-1/4">
+        <h1 class="text-[#004C5E] text-center text-2xl pb-4">Ajouter une annonce</h1>
+    
+        {{ form_start(form, {attr: {id: 'newAnnonceForm', class:'flex flex-col gap-6'}}) }}
+        {{ form_row(form.title, {attr: {class: 'flex flex-col gap-2 p-2 w-full rounded-md border border-gray-300'}}) }}
+        {{ form_row(form.description, {attr: {class: 'flex flex-col gap-2 p-2 w-full rounded-md border border-gray-300'}}) }}
+        {{ form_row(form.price, {attr: {class: 'flex flex-col gap-2 p-2 w-full rounded-md border border-gray-300'}}) }}
+        {{ form_row(form.state, {attr: {class: 'flex flex-col gap-2 p-2 w-full rounded-md border border-gray-300'}})}}
+        {{ form_row(form.city, {attr: {class: 'flex flex-col gap-2 p-2 w-full rounded-md border border-gray-300'}}) }}
+        {{ form_row(form.zipcode, {attr: {class: 'flex flex-col gap-2 p-2 w-full rounded-md border border-gray-300'}}) }}
+        {{ form_row(form.telephone, {attr: {class: 'flex flex-col gap-2 p-2 w-full rounded-md border border-gray-300'}}) }}
+        {{ form_row(form.isVisible) }}
+        <fieldset class="candy">
+            {{ form_label(form.phone) }}
+            {{ form_errors(form.phone) }}
+            {{ form_widget(form.phone) }}
+        </fieldset>
+        <fieldset class="candy">
+            {{ form_label(form.faxNumber) }}
+            {{ form_errors(form.faxNumber) }}
+            {{ form_widget(form.faxNumber) }}
+        </fieldset>
+        {{ form_row(form.Category, {attr: {class: 'flex flex-col gap-2 p-2 w-full rounded-md border border-gray-300'}}) }}
+        {{ form_row(form.subcategory, {attr: {class: 'flex flex-col gap-2 p-2 w-full rounded-md border border-gray-300'}}) }}
+        <button type="submit" class="bg-[#004C5E] p-2 rounded-md hover:bg-[#086479] text-white w-32 m-auto mt-4">Valider</button>
+        {{ form_end(form) }}
+    </div>
+</div>
 {% endblock %}

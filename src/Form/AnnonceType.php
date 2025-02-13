@@ -31,6 +31,7 @@ class AnnonceType extends HoneyPotType
         $builder
             ->add('title', TextType::class, [
                 'label' => 'Titre de l\'annonce',
+                'attr' => ['class' => 'p-2 rounded-md border border-gray-300'],
                 'constraints' => [
                     new NotBlank([
                         'message' => 'Veuillez saisir un titre pour votre annonce',
@@ -39,6 +40,7 @@ class AnnonceType extends HoneyPotType
             ])
             ->add('description', TextType::class, [
                     'label' => 'Description de l\'annonce',
+                    "attr" => ["class" => "p-2 rounded-md border border-gray-300"],
                     'constraints' => [
                         new NotBlank([
                             'message' => 'Veuillez saisir une description pour votre annonce',
@@ -47,6 +49,7 @@ class AnnonceType extends HoneyPotType
                 ])
             ->add('price', MoneyType::class, [
                 'label' => 'Prix de l\'annonce en ',
+                'attr' => ['class' => 'p-2 rounded-md border border-gray-300'],
                 'constraints' => [
                     new NotBlank([
                         'message' => 'Veuillez saisir un prix pour votre annonce',
@@ -54,6 +57,7 @@ class AnnonceType extends HoneyPotType
                 ],
             ])
             ->add('state', ChoiceType::class, [
+                'attr' => ['class' => 'p-2 rounded-md border border-gray-300'],
                 'choices' => [
                     'Neuf' => 'Neuf',
                     'Très bon état' => 'Très bon état',
@@ -69,6 +73,7 @@ class AnnonceType extends HoneyPotType
                 ],
             ])
             ->add('city', TextType::class, [
+                'attr' => ['class' => 'p-2 rounded-md border border-gray-300'],
                 'label' => 'Ville',
                 'constraints' => [
                     new NotBlank([
@@ -77,6 +82,7 @@ class AnnonceType extends HoneyPotType
                 ],
             ])
             ->add('zipcode', TextType::class, [
+                'attr' => ['class' => 'p-2 rounded-md border border-gray-300'],
                 'label' => 'Code postal',
                 'constraints' => [
                     new NotBlank([
@@ -92,17 +98,20 @@ class AnnonceType extends HoneyPotType
                 'label' => 'Téléphone',
             ])
             ->add('Category', EntityType::class, [
+                'attr' => ['class' => 'p-2 rounded-md border border-gray-300'],
+                'label' => 'Choisissez une catégorie',
                 'class' => Category::class,
                 'placeholder' => 'Choisissez une catégorie',
                 'choice_label' => 'name',
                 'required' => true,
-                'mapped' => false,
             ]);
 
             $formModifier = function (FormInterface $form, Category $category = null) {
-                $subcategories = null === $category ? [] : $category->getSubcategories();
+                $subcategories = null === $category ? [] : $category->getSubcategory();
                 $form->add('subcategory', EntityType::class, [
                     'class' => Subcategory::class,
+                    'attr' => ['class' => 'p-2 rounded-md border border-gray-300'],
+                    'label' => 'Choisissez une sous-catégorie',
                     'placeholder' => 'Choisissez une sous-catégorie',
                     'choices' => $subcategories,
                     'choice_label' => 'name',
@@ -115,7 +124,6 @@ class AnnonceType extends HoneyPotType
             FormEvents::PRE_SET_DATA,
             function (FormEvent $event) use ($formModifier) {
                 $data = $event->getData();
-                dd($data);
                 $formModifier($event->getForm(), $data->getCategory());
             }
         );
@@ -129,8 +137,6 @@ class AnnonceType extends HoneyPotType
         );
 
         $builder->setAction($options['action']);
-
-        $builder->add('Valider', SubmitType::class);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

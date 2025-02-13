@@ -163,3 +163,7 @@ footer > p {
     color: white;
     padding: 1rem;
 }
+
+.hidden {
+    display: none;
+}

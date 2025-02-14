@@ -1,38 +1,15 @@
 <!DOCTYPE html>
 <html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Titre projet</title>
-</head>
-<body>
-    
-</body>
-</html>
-
-<!DOCTYPE html>
-<html lang="en">
     <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text><text y=%221.3em%22 x=%220.2em%22 font-size=%2276%22 fill=%22%23fff%22>sf</text></svg>">
+        <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>{% block title %}{% endblock %}</title>
         {% block stylesheets %}
+        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text><text y=%221.3em%22 x=%220.2em%22 font-size=%2276%22 fill=%22%23fff%22>sf</text></svg>">
         <link rel="stylesheet" href=" {{asset('css/style.css')}} ">
-        {% endblock %}
-        <style>
-            .candy {
-                opacity: 0;
-                position: absolute;
-                top: 0;
-                left: 0;
-                height: 0;
-                width: 0;
-                z-index: -1;
-            }
-        </style>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+        {% endblock %}
+        {% block javascripts %}
         <script src="/tarteaucitron/tarteaucitron.min.js"></script>
-        <script src="{{asset('js/script.js')}}" defer></script>
         <script type="text/javascript">
             tarteaucitron.init({
               "privacyUrl": "", /* Url de la politique de confidentialité */
@@ -86,14 +63,13 @@
               "partnersList": true /* Afficher le détail du nombre de partenaires sur la bandeau */
 
             });
-            </script>
-            <script>
-                (tarteaucitron.job = tarteaucitron.job || []).push('googlesignin');
-                </script>
-        {% block javascripts %}
-        <script src="https://cdn.tailwindcss.com"></script>
-            {% block importmap %}{{ importmap('app') }}{% endblock %}
+        </script>
+        <script>
+            (tarteaucitron.job = tarteaucitron.job || []).push('googlesignin');
+        </script>
+        {% block importmap %}{{ importmap('app') }}{% endblock %}
         {% endblock %}
+        <script src="https://cdn.tailwindcss.com"></script>
     </head>
     <body>
         <header class="header">
@@ -110,7 +86,7 @@
                     <a href="" class="navElementTop">Favoris</a>
                     <a href="" class="navElementTop">Messages</a>
                     {% if app.user is not null %}
-                        <a href="" class="navElementTop">Mon compte</a>
+                        <a href="{{ path('app_account') }}" class="navElementTop">Mon compte</a>
                         <a href="{{ path('app_logout') }}" class="navElementTop">Déconnexion</a>
                     {% else %}
                         <a href="{{ path('app_login') }}" class="navElementTop">Se connecter</a>

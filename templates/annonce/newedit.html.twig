@@ -2,6 +2,11 @@
 
 {% block title %}Ajouter une annonce{% endblock %}
 
+{% block javascripts %}
+    <script src="{{asset('js/script_annonce.js')}}" defer></script>
+    <script src="{{asset('js/script_city_finder.js')}}" defer></script>
+{% endblock javascripts %}
+
 {% block body %}
 <div class="flex flex-grow justify-center items-center py-32">
 
@@ -19,8 +24,8 @@
         {{ form_row(form.description, {attr: {class: 'flex flex-col gap-2 p-2 w-full rounded-md border border-gray-300'}}) }}
         {{ form_row(form.price, {attr: {class: 'flex flex-col gap-2 p-2 w-full rounded-md border border-gray-300'}}) }}
         {{ form_row(form.state, {attr: {class: 'flex flex-col gap-2 p-2 w-full rounded-md border border-gray-300'}})}}
-        {{ form_row(form.city, {attr: {class: 'flex flex-col gap-2 p-2 w-full rounded-md border border-gray-300'}}) }}
         {{ form_row(form.zipcode, {attr: {class: 'flex flex-col gap-2 p-2 w-full rounded-md border border-gray-300'}}) }}
+        {{ form_row(form.city, {attr: {class: 'flex flex-col gap-2 p-2 w-full rounded-md border border-gray-300'}}) }}
         {{ form_row(form.telephone, {attr: {class: 'flex flex-col gap-2 p-2 w-full rounded-md border border-gray-300'}}) }}
         {{ form_row(form.isVisible) }}
         <fieldset class="candy">
@@ -39,4 +44,5 @@
         {{ form_end(form) }}
     </div>
 </div>
+
 {% endblock %}

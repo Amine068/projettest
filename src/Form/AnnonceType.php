@@ -16,11 +16,13 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\MoneyType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 
 class AnnonceType extends HoneyPotType
 {
@@ -72,6 +74,14 @@ class AnnonceType extends HoneyPotType
                         'message' => 'Veuillez choisir un état pour votre annonce',
                     ]),
                 ],
+            ])
+            ->add('images', CollectionType::class, [
+                'entry_type' => FileType::class,
+                'entry_options' => ['label' => false],
+                'allow_add' => true,
+                'allow_delete' => true,
+                'by_reference' => false,
+                'required' => false,
             ])
             ->add('zipcode', TextType::class, [
                 'attr' => ['class' => 'p-2 rounded-md border border-gray-300', 'placeholder' => 'Ajouter un code postal'],

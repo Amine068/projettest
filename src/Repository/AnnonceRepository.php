@@ -40,4 +40,13 @@ class AnnonceRepository extends ServiceEntityRepository
     //            ->getOneOrNullResult()
     //        ;
     //    }
+
+    public function search($recherche): array
+    {
+        return $this->createQueryBuilder('a')
+            ->andWhere('a.title LIKE :recherche')
+            ->setParameter('recherche', '%' . $recherche . '%')
+            ->getQuery()
+            ->getResult();
+    }
 }

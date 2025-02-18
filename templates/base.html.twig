@@ -77,9 +77,9 @@
                 <a href="{{ path('app_home') }}" class="headerTitle">Nom du projet</a>
                 <a href="{{ path('add_new_annonce') }}" class="newPost">Déposer une annonce</a>
                 <div class="searchFormContainer">
-                    <form action="" class="searchbar" method="POST">
+                    <form action="{{ path('search_annonces') }}" class="searchbar" method="GET">
                         <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
-                        <input type="text" name="text" class="textSearch" placeholder="Rechercher une annonce">
+                        <input type="text" name="recherche" class="textSearch" placeholder="Rechercher une annonce">
                     </form>
                 </div>
                 <nav class="headerNavTop">

@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Image;
 use App\Entity\Annonce;
 use App\Entity\Category;
 use App\Form\AnnonceType;
@@ -46,21 +47,14 @@ final class AnnonceController extends AbstractController
         // on verifie si le formulaire est soumis et valide
         if ($form->isSubmitted() && $form->isValid()) {
 
-            dump($_POST);
-
-            foreach($_POST['annonce'] as $key => $value) {
-                dump($key);
-                dump($value);
-
-                // dump(filter_input(INPUT_POST, $key , FILTER_SANITIZE_SPECIAL_CHARS));
+            $images = $form->get('images')->getData();
+            foreach ($images as $imageFile) {
+                $image = new Image();
+                $image->setPath($imageFile->getClientOriginalName()); // Save the original name or handle file upload
+                $annonce->addImage($image);
             }
-            // $city = filter_input(INPUT_POST, 'title' , FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-            // dump($city);
 
-            // dump($_POST['annonce']['description']);
-            // on récupère les données du formulaire et on les met dans l'entité annonce
-
-            
+            // on récupère les données du formulaire et on les met dans l'entité annonce 
             $annonce = $form->getData();
 
             dump($annonce);

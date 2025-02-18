@@ -32,20 +32,23 @@ CREATE TABLE IF NOT EXISTS `annonce` (
   `is_validated` tinyint(1) NOT NULL DEFAULT '0',
   `is_visible` tinyint(1) NOT NULL,
   `is_locked` tinyint(1) NOT NULL DEFAULT '0',
-  `telephone` int NOT NULL,
+  `telephone` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `subcategory_id` int DEFAULT NULL,
   `user_id` int NOT NULL,
+  `category_id` int DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `IDX_F65593E55DC6FE57` (`subcategory_id`),
   KEY `IDX_F65593E5A76ED395` (`user_id`),
+  KEY `IDX_F65593E512469DE2` (`category_id`),
+  CONSTRAINT `FK_F65593E512469DE2` FOREIGN KEY (`category_id`) REFERENCES `category` (`id`),
   CONSTRAINT `FK_F65593E55DC6FE57` FOREIGN KEY (`subcategory_id`) REFERENCES `subcategory` (`id`),
   CONSTRAINT `FK_F65593E5A76ED395` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- Listage des données de la table projettest_amine.annonce : ~2 rows (environ)
-INSERT INTO `annonce` (`id`, `title`, `description`, `date_of_post`, `price`, `state`, `city`, `zipcode`, `is_validated`, `is_visible`, `is_locked`, `telephone`, `subcategory_id`, `user_id`) VALUES
-	(1, 'test', 'testtttt', '2025-02-11 13:28:16', 21, 'neuf', 'Mulhouse', '68100', 0, 1, 0, 101010101, NULL, 19),
-	(2, 'testaaa', 'aaaa', '2025-02-11 13:29:54', 21, 'neuf', 'Mulhouse', '68100', 0, 0, 0, 101010101, NULL, 19);
+INSERT INTO `annonce` (`id`, `title`, `description`, `date_of_post`, `price`, `state`, `city`, `zipcode`, `is_validated`, `is_visible`, `is_locked`, `telephone`, `subcategory_id`, `user_id`, `category_id`) VALUES
+	(1, 'test', 'testtttt', '2025-02-11 13:28:16', 21, 'neuf', 'Mulhouse', '68100', 0, 1, 0, '101010101', NULL, 19, NULL),
+	(2, 'testaaa', 'aaaa', '2025-02-11 13:29:54', 21, 'neuf', 'Mulhouse', '68100', 0, 0, 0, '101010101', NULL, 19, NULL);
 
 -- Listage de la structure de table projettest_amine. category
 CREATE TABLE IF NOT EXISTS `category` (
@@ -74,7 +77,7 @@ CREATE TABLE IF NOT EXISTS `doctrine_migration_versions` (
   PRIMARY KEY (`version`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
 
--- Listage des données de la table projettest_amine.doctrine_migration_versions : ~5 rows (environ)
+-- Listage des données de la table projettest_amine.doctrine_migration_versions : ~10 rows (environ)
 INSERT INTO `doctrine_migration_versions` (`version`, `executed_at`, `execution_time`) VALUES
 	('DoctrineMigrations\\Version20250204152401', '2025-02-04 15:24:17', 35),
 	('DoctrineMigrations\\Version20250205134511', '2025-02-05 13:45:24', 44),
@@ -85,7 +88,13 @@ INSERT INTO `doctrine_migration_versions` (`version`, `executed_at`, `execution_
 	('DoctrineMigrations\\Version20250211081648', '2025-02-11 08:16:56', 78),
 	('DoctrineMigrations\\Version20250211093554', '2025-02-11 09:36:00', 76),
 	('DoctrineMigrations\\Version20250211132102', '2025-02-11 13:21:05', 54),
-	('DoctrineMigrations\\Version20250211132614', '2025-02-11 13:26:18', 7);
+	('DoctrineMigrations\\Version20250211132614', '2025-02-11 13:26:18', 7),
+	('DoctrineMigrations\\Version20250213185245', '2025-02-13 18:52:52', 122),
+	('DoctrineMigrations\\Version20250214073122', '2025-02-18 21:05:42', 64),
+	('DoctrineMigrations\\Version20250214073649', '2025-02-18 21:05:42', 29),
+	('DoctrineMigrations\\Version20250218210346', '2025-02-18 21:05:42', 15),
+	('DoctrineMigrations\\Version20250218212435', '2025-02-18 21:24:44', 80),
+	('DoctrineMigrations\\Version20250218212557', '2025-02-18 21:26:00', 14);
 
 -- Listage de la structure de table projettest_amine. messenger_messages
 CREATE TABLE IF NOT EXISTS `messenger_messages` (
@@ -154,26 +163,28 @@ INSERT INTO `subcategory` (`id`, `category_id`, `name`) VALUES
 CREATE TABLE IF NOT EXISTS `user` (
   `id` int NOT NULL AUTO_INCREMENT,
   `email` varchar(180) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `username` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `roles` json NOT NULL,
   `password` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `is_verified` tinyint(1) NOT NULL,
   `google_id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `avatar` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `UNIQ_IDENTIFIER_EMAIL` (`email`)
 ) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- Listage des données de la table projettest_amine.user : ~10 rows (environ)
-INSERT INTO `user` (`id`, `email`, `roles`, `password`, `is_verified`, `google_id`) VALUES
-	(1, 'aaa@aaa.fr', '[]', '$2y$13$u5FCiQ0Ra9KSp3saarkVd.do3IBaSLRyxJTwxtFOm0KRq/EWaUGva', 0, NULL),
-	(2, 'bbb@bbb.fr', '[]', '$2y$13$0jZqK93CeslQ2cT.M.n51.ZdsspHlWSwYp81e0f5ilD8zwecq33oa', 1, NULL),
-	(3, 'ccc@ccc.fr', '[]', '$2y$13$t8FlujAU2Yih.jmHyiRhiecBWG5n97zMne.56RDtQpme2F3BicBuS', 1, NULL),
-	(4, 'ddd@ddd.fr', '[]', '$2y$13$ABTrY6SR.oFB4w24Ela8xecfS/KhLP6yPXcR.oPO2.ey7uGczXfYa', 1, NULL),
-	(5, 'eee@eee.fr', '[]', '$2y$13$0HsIMRdOffENVm1.E6o8vOTe/eNsP/v2Zeo1UNHapEmF2CscPyZaq', 0, NULL),
-	(6, 'fff@fff.fr', '[]', '$2y$13$vFAVOj.DK21G7QzNPDcEOeME4CpBHQ5V2o4YORGSMWdW.5hlN6Rbi', 1, NULL),
-	(9, 'aaaa@aaa.fr', '["ROLE_USER"]', '$2y$13$IEq510YYihD/Lop/W0m4DerNobH7FQ19tmsmKwLpF0rZUICohVsTm', 0, NULL),
-	(10, 'aaaaa@aa.fr', '["ROLE_USER"]', '$2y$13$eC.uELbvpcKVffV8OIYzb.wE41Ap8ZtbOe6nkqWtSi9CXaN5qtVv2', 0, NULL),
-	(14, 'aaaaa@aaa.fr', '["ROLE_USER"]', '$2y$13$8P7RRdkUgXLtFLh6otIuFuOBzLF5sjSYOqJlnnt2oscURM9t4wV2C', 0, NULL),
-	(19, 'aminebouguettaya5@gmail.com', '["ROLE_USER"]', NULL, 0, '111905829402869664208');
+INSERT INTO `user` (`id`, `email`, `username`, `roles`, `password`, `is_verified`, `google_id`, `avatar`) VALUES
+	(1, 'aaa@aaa.fr', 'aaaa', '[]', '$2y$13$u5FCiQ0Ra9KSp3saarkVd.do3IBaSLRyxJTwxtFOm0KRq/EWaUGva', 0, NULL, NULL),
+	(2, 'bbb@bbb.fr', 'bbbb', '[]', '$2y$13$0jZqK93CeslQ2cT.M.n51.ZdsspHlWSwYp81e0f5ilD8zwecq33oa', 1, NULL, NULL),
+	(3, 'ccc@ccc.fr', 'cccc', '[]', '$2y$13$t8FlujAU2Yih.jmHyiRhiecBWG5n97zMne.56RDtQpme2F3BicBuS', 1, NULL, NULL),
+	(4, 'ddd@ddd.fr', 'dddd', '[]', '$2y$13$ABTrY6SR.oFB4w24Ela8xecfS/KhLP6yPXcR.oPO2.ey7uGczXfYa', 1, NULL, NULL),
+	(5, 'eee@eee.fr', 'dddd', '[]', '$2y$13$0HsIMRdOffENVm1.E6o8vOTe/eNsP/v2Zeo1UNHapEmF2CscPyZaq', 0, NULL, NULL),
+	(6, 'fff@fff.fr', 'dddd', '[]', '$2y$13$vFAVOj.DK21G7QzNPDcEOeME4CpBHQ5V2o4YORGSMWdW.5hlN6Rbi', 1, NULL, NULL),
+	(9, 'aaaa@aaa.fr', 'dddd', '["ROLE_USER"]', '$2y$13$IEq510YYihD/Lop/W0m4DerNobH7FQ19tmsmKwLpF0rZUICohVsTm', 0, NULL, NULL),
+	(10, 'aaaaa@aa.fr', 'dddd', '["ROLE_USER"]', '$2y$13$eC.uELbvpcKVffV8OIYzb.wE41Ap8ZtbOe6nkqWtSi9CXaN5qtVv2', 0, NULL, NULL),
+	(14, 'aaaaa@aaa.fr', 'dddd', '["ROLE_USER"]', '$2y$13$8P7RRdkUgXLtFLh6otIuFuOBzLF5sjSYOqJlnnt2oscURM9t4wV2C', 0, NULL, NULL),
+	(19, 'aminebouguettaya5@gmail.com', 'Amine068', '["ROLE_USER"]', NULL, 0, '111905829402869664208', NULL);
 
 /*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;

@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Vos annonce favorites{% endblock %}
+
+{% block body %}
+
+<div class="container mx-auto p-4">
+    <h1 class="text-3xl font-bold mb-4">Vos annonces favorites</h1>
+
+    <div class="bg-white shadow-md rounded-lg p-6 mb-6">
+        {% if app.user.favoriteannonces|length > 0 %}
+            <ul class="list-disc pl-5">
+                {% for annonce in app.user.favoriteannonces %}
+                    <div class="mb-2">
+                        <a href="{{ path('show_annonce', {id: annonce.id}) }}" class="text-blue-500 hover:underline">{{ annonce.title }}</a>
+                        <div class="mt-2">
+                            {% if annonce.images|length > 0 %}
+                                {% for image in annonce.images %}
+                                    <img src="{{ asset('uploads/images/' ~ image.path) }}" alt="{{ annonce.title }}" class="w-32 h-32 object-cover">
+                                {% endfor %}
+                            {% else %}
+                                <img src="{{ asset('images/placeholder.png') }}" alt="Placeholder" class="w-32 h-32 object-cover">
+                            {% endif %}
+                        </div>
+                        <a href="{{ path('remove_favorite', {id: annonce.id}) }}" 
+                           class="text-red-500 hover:text-red-700 transition-colors duration-200">
+                           {# onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce favori ?')" #}
+                           <i class="fas fa-trash-alt"></i>
+                        </a>
+                    </div>
+                {% endfor %}
+            </ul>
+            {% else %}
+            <p>Vous n'avez pas encore de favoris</p>
+        {% endif %}
+    
+    </div>
+</div>
+
+{% endblock %}

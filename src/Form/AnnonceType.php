@@ -75,13 +75,12 @@ class AnnonceType extends HoneyPotType
                     ]),
                 ],
             ])
-            ->add('images', CollectionType::class, [
-                'entry_type' => FileType::class,
-                'entry_options' => ['label' => false],
-                'allow_add' => true,
-                'allow_delete' => true,
-                'by_reference' => false,
+            ->add('images', FileType::class, [
+                'label' => 'Images de l\'annonce',
+                'multiple' => true,
+                'mapped' => false,
                 'required' => false,
+                'attr' => ['class' => 'p-2 rounded-md border border-gray-300'],
             ])
             ->add('zipcode', TextType::class, [
                 'attr' => ['class' => 'p-2 rounded-md border border-gray-300', 'placeholder' => 'Ajouter un code postal'],
@@ -96,8 +95,6 @@ class AnnonceType extends HoneyPotType
                 'placeholder' => 'Entrer un code postal pour choisir une ville',
                 'attr' => ['class' => 'p-2 rounded-md border border-gray-300'],
                 'label' => 'Ville',
-                'mapped' => true,
-                'disabled' => true,
                 'constraints' => [
                     new NotBlank([
                         'message' => 'Veuillez saisir une ville pour votre annonce',
@@ -171,6 +168,18 @@ class AnnonceType extends HoneyPotType
                 $formModifier($event->getForm()->getParent(), $category);
             }
         );
+        $builder->addEventListener(FormEvents::PRE_SUBMIT, function (FormEvent $event) {
+            $data = $event->getData();
+            $form = $event->getForm();
+            
+            if (isset($data['city'])) {
+                $form->add('city', ChoiceType::class, [
+                    'choices' => [$data['city'] => $data['city']],
+                    'attr' => ['class' => 'p-2 rounded-md border border-gray-300'],
+                    'label' => 'Ville',
+                ]);
+            }
+        });
     }
 
     public function configureOptions(OptionsResolver $resolver): void

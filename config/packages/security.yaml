@@ -1,4 +1,8 @@
 security:
+    role_hierarchy:
+        ROLE_MODERATEUR: ROLE_USER
+        ROLE_ADMIN: [ROLE_MODERATEUR, ROLE_ALLOWED_TO_SWITCH]
+        ROLE_SUPER_ADMIN: [ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
     password_hashers:
         Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface: 'auto'
     providers:
@@ -16,6 +20,9 @@ security:
                 enable_csrf: true
             logout:
                 path: app_logout
+            login_throttling:
+                max_attempts: 5
+                interval: '20 minutes'
             custom_authenticators:
                 - App\Security\GoogleAuthenticator
             entry_point: form_login  # Set form_login as the entry point

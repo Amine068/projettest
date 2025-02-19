@@ -65,9 +65,16 @@ class Annonce
     #[ORM\OneToMany(targetEntity: Image::class, mappedBy: 'annonce', orphanRemoval: true)]
     private Collection $images;
 
+    /**
+     * @var Collection<int, User>
+     */
+    #[ORM\ManyToMany(targetEntity: User::class, mappedBy: 'favorite_annonces')]
+    private Collection $users_favorite;
+
     public function __construct()
     {
         $this->images = new ArrayCollection();
+        $this->users_favorite = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -268,6 +275,33 @@ class Annonce
             if ($image->getAnnonce() === $this) {
                 $image->setAnnonce(null);
             }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, User>
+     */
+    public function getUsersFavorite(): Collection
+    {
+        return $this->users_favorite;
+    }
+
+    public function addUsersFavorite(User $usersFavorite): static
+    {
+        if (!$this->users_favorite->contains($usersFavorite)) {
+            $this->users_favorite->add($usersFavorite);
+            $usersFavorite->addFavoriteAnnonce($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUsersFavorite(User $usersFavorite): static
+    {
+        if ($this->users_favorite->removeElement($usersFavorite)) {
+            $usersFavorite->removeFavoriteAnnonce($this);
         }
 
         return $this;

@@ -83,7 +83,7 @@
                     </form>
                 </div>
                 <nav class="headerNavTop">
-                    <a href="" class="navElementTop">Favoris</a>
+                    <a href="{{ path('app_favorites') }}" class="navElementTop">Favoris</a>
                     <a href="" class="navElementTop">Messages</a>
                     {% if app.user is not null %}
                         <a href="{{ path('app_account') }}" class="navElementTop">Mon compte</a>

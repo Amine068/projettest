@@ -54,9 +54,16 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $avatar = null;
 
+    /**
+     * @var Collection<int, Annonce>
+     */
+    #[ORM\ManyToMany(targetEntity: Annonce::class, inversedBy: 'users_favorite')]
+    private Collection $favorite_annonces;
+
     public function __construct()
     {
         $this->annonces = new ArrayCollection();
+        $this->favorite_annonces = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -208,6 +215,30 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setAvatar(?string $avatar): static
     {
         $this->avatar = $avatar;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Annonce>
+     */
+    public function getFavoriteAnnonces(): Collection
+    {
+        return $this->favorite_annonces;
+    }
+
+    public function addFavoriteAnnonce(Annonce $favoriteAnnonce): static
+    {
+        if (!$this->favorite_annonces->contains($favoriteAnnonce)) {
+            $this->favorite_annonces->add($favoriteAnnonce);
+        }
+
+        return $this;
+    }
+
+    public function removeFavoriteAnnonce(Annonce $favoriteAnnonce): static
+    {
+        $this->favorite_annonces->removeElement($favoriteAnnonce);
 
         return $this;
     }

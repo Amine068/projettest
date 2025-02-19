@@ -8,7 +8,7 @@ const fetchCities = (postalCode) => {
             selectVille.innerHTML = data.map(ville => 
                 `<option value='${ville.nom}'>${ville.nom}</option>`
             ).join('');
-            selectVille.disabled = false;
+            // selectVille.disabled = false;
             if (data.length === 1) selectVille.dispatchEvent(new Event('change'));
         })
         .catch(error => console.error('erreur:', error));

@@ -21,6 +21,24 @@
                             <img src="{{ asset('images/placeholder.png') }}" alt="Placeholder" class="w-32 h-32 object-cover">
                         {% endif %}
                     </div>
+                    {% if (app.user) and (app.user.favoriteannonces|length > 0) %}
+                        {% for annoncefav in app.user.favoriteannonces %}
+                            {% if annoncefav == annonce %}
+                            <a href="{{ path('remove_favorite', {id: annonce.id}) }}" 
+                            class="text-red-500 hover:text-red-700 transition-colors duration-200">
+                            {# onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce favori ?')" #}
+                            <i class="fa-solid fa-heart"></i></a>
+                            {% else %}
+                            <a href="{{ path('add_favorite', {id: annonce.id}) }}">
+                            {# onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce favori ?')" #}
+                            <i class="fa-regular fa-heart"></i></a>
+                            {% endif %}
+                        {% endfor %}
+                    {% else %}
+                    <a href="{{ path('add_favorite', {id: annonce.id}) }}">
+                    {# onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce favori ?')" #}
+                    <i class="fa-regular fa-heart"></i></a>
+                    {% endif %}
                 </div>
             {% endfor %}
         </ul>

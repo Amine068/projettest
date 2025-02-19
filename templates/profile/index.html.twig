@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Profile{% endblock %}
+{% block title %}Votre profile{% endblock %}
 
 {% block body %}
 <div class="container mx-auto p-4">
@@ -10,14 +10,23 @@
         <h2 class="text-2xl font-semibold mb-4">Information</h2>
         <div class="flex items-center mb-4">
             {% if app.user.avatar %}
-                <img src="{{ asset('uploads/avatars/' ~ app.user.avatar) }}" alt="Profile Picture" class="w-16 h-16 rounded-full mr-4">
+                {% if avatarExists == true %}
+
+                <img src="{{ asset('uploads/profile/' ~ app.user.avatar) }}" alt="Profile Picture" class="w-16 h-16 rounded-full mr-4">
+
+                {% else %}
+
+                <img src="{{app.user.avatar}}" alt="photo de profile" class="w-16 h-16 rounded-full mr-4">
+                    
+                {% endif %}
             {% else %}
                 <img src="{{ asset('images/profile_placeholder.png') }}" alt="Default Avatar" class="w-16 h-16 rounded-full mr-4">
             {% endif %}
             <div>
                 <p class="mb-2"><strong>Pseudo:</strong> {{ app.user.username }}</p>
                 <p class="mb-2"><strong>Email:</strong> {{ app.user.email }}</p>
-                <a href="" class="text-blue-500 hover:underline">Edit Profile</a>
+                <a href="{{ path('edit_account') }}" class="text-blue-500 hover:underline">Modifier</a>
+                <a href="{{ path('delete_account') }}" class="text-red-500 hover:text-red-600">Supprimer votre Compte</a>
             </div>
         </div>
     </div>
@@ -28,8 +37,8 @@
             {% for annonce in annonces %}
                 <div class="mb-2">
                     <a href="{{ path('show_annonce', {id: annonce.id}) }}" class="text-blue-500 hover:underline">{{ annonce.title }}</a>
-                    <a href="" class="text-yellow-500 hover:underline ml-2">Edit</a>
-                    <a href="" class="text-red-500 hover:underline ml-2">Delete</a>
+                    <a href="{{ path('edit_annonce', {id: annonce.id}) }}" class="text-yellow-500 hover:underline ml-2">Edit</a>
+                    <a href="{{ path('delete_annonce', {id: annonce.id}) }}" class="text-red-500 hover:underline ml-2">Delete</a>
                     {# onclick="return confirm('Are you sure?')" #}
                     <div class="mt-2">
                         {% if annonce.images|length > 0 %}

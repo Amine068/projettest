@@ -67,6 +67,9 @@ final class ProfileController extends AbstractController
     public function deleteAccount(EntityManagerInterface $entityManager): Response
     {   
         $user = $this->getUser();
+        $this->anonymizeUser($user);
+        $entityManager->persist($user);
+        $entityManager->flush();
 
 
         return $this->redirectToRoute('app_logout');
@@ -74,13 +77,14 @@ final class ProfileController extends AbstractController
 
     public function anonymizeUser(User $user)
     {
-        $newUsername = hash('sha256', uniqid());
+        $newUsername = uniqid();
         $newEmail = hash('sha256', uniqid());
+        $newPassword = hash('sha256', uniqid());
         $user->setUsername($newUsername);
         $user->setEmail($newEmail);
-        $user->setPassword(NULL);
+        $user->setPassword($newPassword);
         $user->setRoles(['ROLE_DELETE']);
-        $user->setGoggleId(NULL);
+        $user->setGoogleId(null);
     }
 
     #[Route('/account/favorites', name: 'app_favorites')]
